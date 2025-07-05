@@ -32,6 +32,7 @@ const Login = ({ onLogin, userName, setUserName, password, setPassword }) => {
   return (
     <form onSubmit={handleLogin}>
       <h2>Login</h2>
+      <label>Username: </label>
       <input
         type="text"
         placeholder="Username"
@@ -39,6 +40,7 @@ const Login = ({ onLogin, userName, setUserName, password, setPassword }) => {
         onChange={(e) => setUserName(e.target.value)}
         required
       />
+      <label>Password</label>
       <input
         type="password"
         placeholder="Password"

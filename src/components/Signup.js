@@ -11,6 +11,12 @@ const Signup = ({
 
   const handleSignup = async (e) => {
     e.preventDefault();
+
+    if (newPassword.length < 6) {
+      alert("Password must be at least 6 characters long.");
+      return;
+    }
+
     try {
       const response = await request.post("/users", {
         username: newUserName,
@@ -34,6 +40,7 @@ const Signup = ({
   return (
     <form onSubmit={handleSignup}>
       <h2>Signup</h2>
+      <label>Username: </label>
       <input
         type="text"
         placeholder="Username"
@@ -41,6 +48,7 @@ const Signup = ({
         onChange={(e) => setNewUserName(e.target.value)}
         required
       />
+      <label>Password</label>
       <input
         type="password"
         placeholder="Password"
@@ -48,6 +56,7 @@ const Signup = ({
         onChange={(e) => setNewPassword(e.target.value)}
         required
       />
+      <p>* Password must be upto 6 characters.</p>
       <button type="submit">Signup</button>
     </form>
   );
