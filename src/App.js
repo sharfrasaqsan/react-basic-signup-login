@@ -1,24 +1,64 @@
-import logo from './logo.svg';
-import './App.css';
+import Signup from "./components/Signup";
+import Login from "./components/Login";
+import Home from "./components/Home";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Nav from "./components/Nav";
+import { useState } from "react";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const [newUserName, setNewUserName] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+
+  const onLogin = () => {
+    setIsLoggedIn(true);
+  };
+
+  const onLogout = () => {
+    setIsLoggedIn(false);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main>
+      <Nav />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            isLoggedIn ? (
+              <Home onLogout={onLogout} />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <Login
+              onLogin={onLogin}
+              userName={userName}
+              setUserName={setUserName}
+              password={password}
+              setPassword={setPassword}
+            />
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <Signup
+              newUserName={newUserName}
+              setNewUserName={setNewUserName}
+              newPassword={newPassword}
+              setNewPassword={setNewPassword}
+            />
+          }
+        />
+      </Routes>
+    </main>
   );
 }
 
